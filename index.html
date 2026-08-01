@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jarren Chang</title>
+<meta name="description" content="Jarren Chang's personal site. Just getting started.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌱</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..900&family=Karla:wght@300..700&display=swap" rel="stylesheet">
+
+<!-- Set the theme before first paint so the page never flashes the wrong one. -->
+<script>
+  (function () {
+    try {
+      var saved = localStorage.getItem("theme");
+      if (saved === "light" || saved === "dark") {
+        document.documentElement.setAttribute("data-theme", saved);
+      }
+    } catch (e) { /* private browsing — fall back to the system preference */ }
+  })();
+</script>
+
+<style>
+  /* ---------- light (default) ---------- */
+  :root {
+    --paper:        #FBF8F3;
+    --card:         #FFFDF9;
+    --ink:          #16130F;
+    --ink-soft:     #5C544A;
+    --brick:        #B23A22;
+    --highlight:    #F6D66B;
+    --on-highlight: #16130F;
+    --rule:         #DCD3C4;
+    --grain:        .32;
+    --wash-a:       rgba(246, 214, 107, .28);
+    --wash-b:       rgba(178, 58, 34, .07);
+    --card-shadow:  0 1px 2px rgba(22,19,15,.04), 0 12px 28px -14px rgba(22,19,15,.22);
+
+    --display: "Fraunces", Georgia, serif;
+    --body:    "Karla", -apple-system, sans-serif;
+  }
+
+  /* ---------- dark ---------- */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:        #14120F;
+      --card:         #1C1916;
+      --ink:          #F2EDE4;
+      --ink-soft:     #A79C8D;
+      --brick:        #EE7455;
+      --highlight:    #F6D66B;
+      --on-highlight: #14120F;
+      --rule:         #37312A;
+      --grain:        .20;
+      --wash-a:       rgba(246, 214, 107, .10);
+      --wash-b:       rgba(238, 116, 85, .07);
+      --card-shadow:  0 1px 2px rgba(0,0,0,.3), 0 14px 34px -16px rgba(0,0,0,.6);
+    }
+  }
+
+  /* The toggle must beat the media query in BOTH directions. */
+  :root[data-theme="dark"] {
+    --paper:        #14120F;
+    --card:         #1C1916;
+    --ink:          #F2EDE4;
+    --ink-soft:     #A79C8D;
+    --brick:        #EE7455;
+    --highlight:    #F6D66B;
+    --on-highlight: #14120F;
+    --rule:         #37312A;
+    --grain:        .20;
+    --wash-a:       rgba(246, 214, 107, .10);
+    --wash-b:       rgba(238, 116, 85, .07);
+    --card-shadow:  0 1px 2px rgba(0,0,0,.3), 0 14px 34px -16px rgba(0,0,0,.6);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: clamp(1rem, 0.95rem + 0.3vw, 1.15rem);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    transition: background-color .35s ease, color .35s ease;
+  }
+
+  /* Paper grain — inline SVG turbulence, no external asset to lose. */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: var(--grain);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='.42'/%3E%3C/svg%3E");
+  }
+
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(70ch 60ch at 8% -10%, var(--wash-a), transparent 70%),
+      radial-gradient(60ch 50ch at 105% 8%, var(--wash-b), transparent 65%);
+  }
+
+  .wrap {
+    max-width: 74ch;
+    margin: 0 auto;
+    padding-inline: clamp(1.5rem, 6vw, 4rem);
+  }
+
+  main {
+    position: relative;
+    z-index: 1;
+    padding-top: clamp(3.5rem, 11vh, 8rem);
+  }
+
+  /* ---------- theme toggle ---------- */
+
+  .toggle {
+    position: fixed;
+    top: clamp(1rem, 3vw, 1.75rem);
+    right: clamp(1rem, 3vw, 1.75rem);
+    z-index: 10;
+    width: 2.75rem;
+    height: 2.75rem;
+    display: grid;
+    place-items: center;
+    background: var(--card);
+    color: var(--ink-soft);
+    border: 1px solid var(--rule);
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.05rem;
+    line-height: 1;
+    box-shadow: var(--card-shadow);
+    transition: color .2s ease, transform .2s ease, border-color .2s ease;
+  }
+  .toggle:hover { color: var(--brick); transform: rotate(-12deg) scale(1.06); }
+  .toggle:focus-visible { outline: 2px solid var(--brick); outline-offset: 3px; }
+
+  .toggle .moon { display: none; }
+  :root[data-theme="dark"] .toggle .sun  { display: none; }
+  :root[data-theme="dark"] .toggle .moon { display: block; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .toggle .sun  { display: none; }
+    :root:not([data-theme="light"]) .toggle .moon { display: block; }
+  }
+
+  /* ---------- masthead ---------- */
+
+  .eyebrow {
+    font-size: .8rem;
+    font-weight: 600;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--brick);
+    margin: 0 0 1.4rem;
+  }
+
+  h1 {
+    font-family: var(--display);
+    font-optical-sizing: auto;
+    font-weight: 800;
+    font-size: clamp(3.6rem, 15vw, 9.5rem);
+    line-height: .84;
+    letter-spacing: -.035em;
+    margin: 0 0 0 -.055em;
+  }
+
+  h1 .surname {
+    display: block;
+    color: var(--brick);
+    font-style: italic;
+    font-weight: 700;
+  }
+
+  .lede {
+    font-family: var(--display);
+    font-size: clamp(1.25rem, 1.05rem + 1vw, 1.7rem);
+    line-height: 1.45;
+    color: var(--ink-soft);
+    max-width: 36ch;
+    margin: 2.4rem 0 0;
+  }
+
+  .lede em {
+    font-style: normal;
+    color: var(--on-highlight);
+    background: linear-gradient(transparent 62%, var(--highlight) 62%, var(--highlight) 94%, transparent 94%);
+    padding: 0 .12em;
+  }
+
+  /* ---------- ideas notecard ---------- */
+
+  .ideas {
+    position: relative;
+    margin: clamp(3.5rem, 9vh, 6rem) 0 0;
+    padding: clamp(1.75rem, 4vw, 2.75rem) clamp(1.5rem, 4vw, 3rem) clamp(2rem, 4vw, 3rem);
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    transform: rotate(-.7deg);
+    box-shadow: var(--card-shadow);
+  }
+
+  .ideas::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: .5;
+    background: repeating-linear-gradient(
+      to bottom,
+      transparent,
+      transparent calc(1.9em - 1px),
+      var(--rule) calc(1.9em - 1px),
+      var(--rule) 1.9em
+    );
+  }
+
+  .ideas > * { position: relative; }
+
+  .ideas h2 {
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: .17em;
+    text-transform: uppercase;
+    color: var(--brick);
+    margin: 0 0 .35rem;
+  }
+
+  .ideas .sub {
+    font-family: var(--display);
+    font-size: 1.15rem;
+    color: var(--ink-soft);
+    margin: 0 0 1.75rem;
+    line-height: 1.4;
+  }
+
+  .ideas ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: .95rem;
+  }
+
+  .ideas li {
+    display: grid;
+    grid-template-columns: 1.6rem 1fr;
+    align-items: baseline;
+    font-size: 1.02rem;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+
+  .ideas li::before {
+    content: "→";
+    color: var(--brick);
+    font-weight: 600;
+    opacity: .8;
+  }
+
+  .ideas li b { font-weight: 700; color: var(--ink); }
+
+  .ideas .last {
+    margin: 1.9rem 0 0;
+    padding-top: 1.4rem;
+    border-top: 1px dashed var(--rule);
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- footer ---------- */
+
+  footer {
+    position: relative;
+    z-index: 1;
+    margin-top: clamp(3.5rem, 9vh, 6rem);
+    padding-bottom: 4rem;
+  }
+
+  footer .inner {
+    padding-top: 2rem;
+    border-top: 2px solid var(--ink);
+  }
+
+  footer p { margin: 0 0 .9rem; max-width: 48ch; color: var(--ink-soft); }
+
+  footer .ask {
+    font-family: var(--display);
+    font-size: clamp(1.3rem, 1.1rem + 1vw, 1.75rem);
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--ink);
+    margin-bottom: 1.1rem;
+  }
+
+  footer .ask b {
+    color: var(--brick);
+    font-style: italic;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  footer small {
+    display: block;
+    margin-top: 1.8rem;
+    font-size: .82rem;
+    letter-spacing: .04em;
+    color: var(--ink-soft);
+    opacity: .7;
+  }
+
+  /* ---------- entrance ---------- */
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    animation: rise .85s cubic-bezier(.22,.68,.32,1) forwards;
+  }
+  .d1 { animation-delay: .05s; }
+  .d2 { animation-delay: .18s; }
+  .d3 { animation-delay: .32s; }
+  .d4 { animation-delay: .48s; }
+  .d5 { animation-delay: .62s; }
+
+  @keyframes rise { to { opacity: 1; transform: translateY(0); } }
+
+  .ideas.reveal { animation-name: rise-tilt; }
+  @keyframes rise-tilt {
+    from { opacity: 0; transform: translateY(20px) rotate(1.4deg); }
+    to   { opacity: 1; transform: translateY(0)   rotate(-.7deg); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { animation: none; opacity: 1; transform: none; }
+    .ideas.reveal { transform: rotate(-.7deg); }
+    body, .toggle { transition: none; }
+  }
+
+  @media (max-width: 34rem) {
+    .ideas, .ideas.reveal { transform: none; }
+    .ideas.reveal { animation-name: rise; }
+    h1 { margin-left: -.03em; }
+  }
+</style>
+</head>
+<body>
+
+<button class="toggle" id="themeToggle" type="button" aria-label="Switch between light and dark mode">
+  <span class="sun" aria-hidden="true">☀</span>
+  <span class="moon" aria-hidden="true">☾</span>
+</button>
+
+<main class="wrap">
+
+  <p class="eyebrow reveal d1">jarrenchang.com</p>
+
+  <h1 class="reveal d2">Jarren<span class="surname">Chang</span></h1>
+
+  <p class="lede reveal d3">
+    My corner of the internet. There's <em>nothing here yet</em> — which means it can
+    turn into whatever I want.
+  </p>
+
+  <section class="ideas reveal d4">
+    <h2>Ideas for this page</h2>
+    <p class="sub">Things worth putting here, whenever you get around to it.</p>
+
+    <ul>
+      <li><span><b>Who you are.</b> Where you're from, what you're studying, what you're aiming at.</span></li>
+      <li><span><b>Work you want people to see.</b> Projects, writing, design, code, video — anything you made.</span></li>
+      <li><span><b>Your résumé,</b> or a link to it. This gets useful faster than you'd expect.</span></li>
+      <li><span><b>Photos you've taken.</b> They don't have to be good ones.</span></li>
+      <li><span><b>What you're into right now.</b> Music, teams, games, food, places worth going.</span></li>
+      <li><span><b>How to reach you.</b> As much or as little as you want to share.</span></li>
+    </ul>
+
+    <p class="last">Or something nobody's thought of yet. It's your page — that's the whole point.</p>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap inner">
+    <p class="ask">
+      Want to change something here, or build the whole thing out?<br>
+      Just ask <b>Uncle Jimmy</b>.
+    </p>
+    <p>
+      He'll walk you through it, and there'll be a step-by-step guide on this site soon
+      so you can do it yourself. You don't need to know how to code to start.
+    </p>
+    <small>Started July 2026 · Yours to change whenever you want</small>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var btn = document.getElementById("themeToggle");
+    var root = document.documentElement;
+
+    btn.addEventListener("click", function () {
+      var systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      var current = root.getAttribute("data-theme") || (systemDark ? "dark" : "light");
+      var next = current === "dark" ? "light" : "dark";
+      root.setAttribute("data-theme", next);
+      try { localStorage.setItem("theme", next); } catch (e) { /* nothing to do */ }
+    });
+  })();
+</script>
+
+</body>
+</html>
