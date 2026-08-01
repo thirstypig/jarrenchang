@@ -209,11 +209,20 @@ h1 .surname {
   margin: 2.4rem 0 0;
 }
 
+/* Highlighted words. The fill covers the FULL line height on purpose: an
+   underline-style swipe (transparent 62% -> gold 94%) left the text sitting on
+   the page background, and in dark mode --on-highlight is the same value as
+   --paper, so the words vanished completely. A full fill means the dark text is
+   always on gold — about 10:1 either way — instead of depending on the theme.
+   box-decoration-break keeps the padding correct when a phrase wraps a line. */
 .lede em {
   font-style: normal;
   color: var(--on-highlight);
-  background: linear-gradient(transparent 62%, var(--highlight) 62%, var(--highlight) 94%, transparent 94%);
-  padding: 0 .12em;
+  background: var(--highlight);
+  padding: .08em .32em;
+  border-radius: 3px;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
 }
 
 /* the "read the manual" call-to-action */
