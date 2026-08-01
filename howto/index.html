@@ -1,0 +1,605 @@
+<!doctype html>
+<html lang="en" class="manual">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to run this site — Jarren Chang</title>
+<meta name="description" content="A step-by-step guide to editing and publishing jarrenchang.com, written for someone who has never used a terminal.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌱</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Manrope:wght@300..800&family=Outfit:wght@300..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+<script>
+  (function () {
+    try {
+      var saved = localStorage.getItem("theme");
+      if (saved === "light" || saved === "dark") document.documentElement.setAttribute("data-theme", saved);
+    } catch (e) {}
+  })();
+</script>
+</head>
+<body>
+
+<a class="skip" href="#start">Skip to the manual</a>
+
+<button class="toggle" id="themeToggle" type="button" aria-label="Switch between light and dark mode">
+  <span class="sun" aria-hidden="true">☀</span>
+  <span class="moon" aria-hidden="true">☾</span>
+</button>
+
+<div class="topbar wrap">
+  <a class="back" href="/">← Back to the front page</a>
+</div>
+
+<main class="wrap">
+
+  <header class="manual-head">
+    <p class="kicker">jarrenchang.com — operator's manual</p>
+    <h1>How to run<br>this site</h1>
+    <p class="standfirst">
+      Everything you need to change this website, add to it, and publish it yourself.
+      You don't need to know how to code. You do need about an hour the first time.
+    </p>
+  </header>
+
+  <nav class="toc" aria-label="Contents" id="start">
+    <h2>Contents</h2>
+    <ol>
+      <li><a href="#s00"><span class="num">00</span><span class="label">How this website actually works</span></a></li>
+      <li><a href="#s01"><span class="num">01</span><span class="label">Get a GitHub account</span></a></li>
+      <li><a href="#s02"><span class="num">02</span><span class="label">Open the Terminal</span></a></li>
+      <li><a href="#s03"><span class="num">03</span><span class="label">Install your AI helper</span></a></li>
+      <li><a href="#s04"><span class="num">04</span><span class="label">Get the site onto your computer</span></a></li>
+      <li><a href="#s05"><span class="num">05</span><span class="label">The everyday loop</span></a></li>
+      <li><a href="#s06"><span class="num">06</span><span class="label">Make your first change</span></a></li>
+      <li><a href="#s07"><span class="num">07</span><span class="label">Make a whole new page</span></a></li>
+      <li><a href="#s08"><span class="num">08</span><span class="label">Write a prompt that works</span></a></li>
+      <li><a href="#s09"><span class="num">09</span><span class="label">The prompt pack</span></a></li>
+      <li><a href="#s10"><span class="num">10</span><span class="label">When something breaks</span></a></li>
+      <li><a href="#s11"><span class="num">11</span><span class="label">Rules of the road</span></a></li>
+      <li><a href="#glossary"><span class="num">—</span><span class="label">Glossary</span></a></li>
+    </ol>
+  </nav>
+
+  <!-- ============ 00 ============ -->
+  <section class="station" id="s00">
+    <h2><span class="num">00</span><span>How this website actually works</span></h2>
+
+    <p>
+      Three things exist, and they hold copies of the same site. Once this clicks,
+      the rest of the manual is just details.
+    </p>
+
+    <ol>
+      <li><b>A folder on your laptop.</b> This is where you make changes. Nobody else can see it.</li>
+      <li><b>GitHub.</b> A website that stores the folder online and remembers every version of it, forever.</li>
+      <li><b>The live site.</b> What the world sees at <code>jarrenchang.com</code>.</li>
+    </ol>
+
+    <p>
+      You edit the folder on your laptop. When you're happy, you <em>push</em> the changes
+      to GitHub. GitHub notices, and about a minute later the live site updates by itself.
+      That's the whole system.
+    </p>
+
+    <div class="note">
+      <strong>The one rule to remember</strong>
+      <p>
+        A folder containing a file called <code>index.html</code> becomes a page on the site.
+        The folder <code>howto/</code> holds <code>index.html</code> — that's why you're reading
+        this at <code>jarrenchang.com/howto</code>. Make a folder called <code>music/</code> with an
+        <code>index.html</code> inside, and you've made <code>jarrenchang.com/music</code>.
+      </p>
+    </div>
+
+    <p>
+      The site is built from plain files — no database, no software to keep updated, nothing
+      that expires. Hosting is free. If you ignore it for two years it'll still be there.
+    </p>
+  </section>
+
+  <!-- ============ 01 ============ -->
+  <section class="station" id="s01">
+    <h2><span class="num">01</span><span>Get a GitHub account</span></h2>
+
+    <p>GitHub is where the site lives. The account is free and takes a few minutes.</p>
+
+    <ol>
+      <li>Go to <a href="https://github.com/signup">github.com/signup</a>.</li>
+      <li>
+        <b>Pick a username you'd be happy showing an employer.</b> It appears in public
+        links. Something close to your name is a safe choice; an old gamertag is not.
+      </li>
+      <li>
+        <b>Use an email address you'll still have in ten years.</b> Not your UW address —
+        universities close those after you graduate, and recovering a locked account without
+        the email is genuinely painful.
+      </li>
+      <li>Turn on two-factor authentication when it offers. It takes two minutes and it's the
+        difference between an inconvenience and losing the account.</li>
+      <li>Send your username to Uncle Jimmy so he can give you access to the site.</li>
+    </ol>
+
+    <div class="careful">
+      <strong>Careful</strong>
+      <p>
+        Everything you put in a public repository is public — permanently, and often
+        copied elsewhere within minutes. Don't commit your address, your phone number,
+        your student ID, or anything with a password in it. Deleting it later does not
+        remove it from the history.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ 02 ============ -->
+  <section class="station" id="s02">
+    <h2><span class="num">02</span><span>Open the Terminal</span></h2>
+
+    <p>
+      Terminal is an app that's already on your Mac. It lets you type instructions to the
+      computer instead of clicking. It looks intimidating and isn't — you'll use about five
+      commands total, and you can paste all of them.
+    </p>
+
+    <ol>
+      <li>Press <code>⌘</code> + <code>Space</code>.</li>
+      <li>Type <code>Terminal</code> and press <code>Return</code>.</li>
+    </ol>
+
+    <p>A window opens with a blinking cursor. Try one to see that nothing bad happens:</p>
+
+    <pre><code>pwd</code></pre>
+
+    <p>
+      It prints which folder you're currently in — "print working directory." That's the
+      shape of everything here: you type a short command, press Return, it does one thing.
+    </p>
+
+    <div class="note">
+      <strong>Worth knowing</strong>
+      <p>
+        Terminal won't ask "are you sure?" the way the rest of the Mac does. That's the only
+        real difference. Stick to commands from this manual or from your AI helper and you
+        won't hit trouble.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ 03 ============ -->
+  <section class="station" id="s03">
+    <h2><span class="num">03</span><span>Install your AI helper</span></h2>
+
+    <p>
+      This is the part that makes the whole thing workable. Instead of learning HTML, you
+      describe what you want in plain English and the helper writes it. You still review it
+      and decide whether to publish.
+    </p>
+
+    <p>Pick one. <b>Claude Code</b> is what this manual assumes.</p>
+
+    <h3>Claude Code</h3>
+    <pre><code>npm install -g @anthropic-ai/claude-code</code></pre>
+
+    <h3>Codex (the alternative)</h3>
+    <pre><code>npm install -g @openai/codex</code></pre>
+
+    <p>If either says <code>npm: command not found</code>, install Node first — it's a one-time thing:</p>
+    <pre><code>brew install node</code></pre>
+
+    <div class="note">
+      <strong>If you get a permissions error</strong>
+      <p>
+        A red wall of text mentioning <code>EACCES</code> or <code>permission denied</code> means
+        the installer needs elevated rights. Put <code>sudo</code> in front and run it again —
+        it'll ask for your Mac password, and nothing appears as you type it. That's normal.
+      </p>
+      <pre><code>sudo npm install -g @anthropic-ai/claude-code</code></pre>
+    </div>
+  </section>
+
+  <!-- ============ 04 ============ -->
+  <section class="station" id="s04">
+    <h2><span class="num">04</span><span>Get the site onto your computer</span></h2>
+
+    <p>You do this once. After today you'll never repeat it.</p>
+
+    <p>Paste these one at a time, pressing Return after each:</p>
+
+    <pre><code>cd ~/Documents
+git clone https://github.com/thirstypig/jarrenchang.git
+cd jarrenchang</code></pre>
+
+    <p>
+      In order: move into your Documents folder, download the site from GitHub, then step
+      inside the folder you just downloaded. Now start the helper:
+    </p>
+
+    <pre><code>claude</code></pre>
+
+    <p>
+      The helper is now running <em>inside your site's folder</em>, which is what makes it
+      useful — it can read every file, so you can refer to things by name and it knows what
+      you mean.
+    </p>
+
+    <div class="note">
+      <strong>Coming back later</strong>
+      <p>
+        Next time, you only need these two lines. There's no need to clone again.
+      </p>
+      <pre><code>cd ~/Documents/jarrenchang
+claude</code></pre>
+    </div>
+  </section>
+
+  <!-- ============ 05 ============ -->
+  <section class="station" id="s05">
+    <h2><span class="num">05</span><span>The everyday loop</span></h2>
+
+    <p>Every change you ever make follows the same three steps.</p>
+
+    <h3>1. Ask</h3>
+    <p>Describe what you want, in normal sentences. The helper edits the files.</p>
+
+    <h3>2. Look</h3>
+    <p>Check it before anyone else sees it. In a second Terminal window:</p>
+    <pre><code>cd ~/Documents/jarrenchang
+python3 -m http.server 3140</code></pre>
+    <p>
+      Then open <a href="http://localhost:3140">localhost:3140</a> in your browser. That's your
+      private copy — it's running on your laptop and nobody else can reach it. Press
+      <code>Control</code> + <code>C</code> in Terminal to stop it.
+    </p>
+
+    <div class="note">
+      <strong>Why 3140?</strong>
+      <p>
+        Uncle Jimmy runs a lot of sites on one machine, and each one gets its own number so
+        they don't collide. <b>3140 is yours.</b> Tobin's is 3130. If you use someone else's
+        number, one of you gets a confusing error.
+      </p>
+    </div>
+
+    <h3>3. Ship</h3>
+    <p>When it looks right, publish it. You can simply ask:</p>
+    <div class="prompt">
+      <span class="tag">Prompt</span>
+      <p>Commit these changes with a clear message and push them to GitHub.</p>
+    </div>
+    <p>
+      Wait about a minute, then reload <code>jarrenchang.com</code>. Your change is live to
+      the entire internet.
+    </p>
+  </section>
+
+  <!-- ============ 06 ============ -->
+  <section class="station" id="s06">
+    <h2><span class="num">06</span><span>Make your first change</span></h2>
+
+    <p>Do this now — it's the fastest way to prove the whole chain works.</p>
+
+    <ol>
+      <li>Open Terminal, run <code>cd ~/Documents/jarrenchang</code>, then <code>claude</code>.</li>
+      <li>Paste the prompt below and press Return.</li>
+      <li>Read what it changed. It'll show you.</li>
+      <li>Start the preview and look at <a href="http://localhost:3140">localhost:3140</a>.</li>
+      <li>Ask it to commit and push.</li>
+    </ol>
+
+    <div class="prompt">
+      <span class="tag">Copy this</span>
+      <p>
+        On the front page, change the sentence under my name so it says something that
+        sounds more like me. Keep it to one or two lines and keep the existing style and
+        formatting. Show me the change before you save it.
+      </p>
+    </div>
+
+    <p>
+      That's it. That's the entire job, forever. Everything after this point is a variation
+      on those five steps.
+    </p>
+  </section>
+
+  <!-- ============ 07 ============ -->
+  <section class="station" id="s07">
+    <h2><span class="num">07</span><span>Make a whole new page</span></h2>
+
+    <p>Remember the rule from Station 00 — a folder with an <code>index.html</code> becomes a page:</p>
+
+    <pre><code>jarrenchang.com/
+  index.html          →  jarrenchang.com
+  howto/index.html    →  jarrenchang.com/howto
+  photos/index.html   →  jarrenchang.com/photos     (once you make it)</code></pre>
+
+    <p>You don't have to build that by hand. Ask:</p>
+
+    <div class="prompt">
+      <span class="tag">Prompt</span>
+      <p>
+        Make a new page at /photos for pictures I've taken. Match the fonts, colours and
+        layout of the existing pages exactly, and add a link to it from the front page.
+      </p>
+    </div>
+
+    <p>The "match the existing style" part matters. Without it you get a page that looks like it came from a different website.</p>
+
+    <div class="prompt">
+      <span class="tag">Another one</span>
+      <p>
+        Add a page at /about with a short bio and a photo. Use the same header and footer as
+        the other pages so it feels like part of the same site.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ 08 ============ -->
+  <section class="station" id="s08">
+    <h2><span class="num">08</span><span>Write a prompt that works</span></h2>
+
+    <p>
+      The quality of what you get back tracks almost entirely with how specific you were.
+      A good prompt has four ingredients:
+    </p>
+
+    <ol>
+      <li><b>What</b> you want changed.</li>
+      <li><b>Where</b> it is — a page, a section, a heading.</li>
+      <li><b>How it should feel</b> — shorter, warmer, more formal, funnier.</li>
+      <li><b>What not to touch</b> — the part people forget, and the part that prevents surprises.</li>
+    </ol>
+
+    <div class="compare">
+      <div class="weak">
+        <span class="verdict">Too vague</span>
+        <p>"make the site better"</p>
+      </div>
+      <div class="strong">
+        <span class="verdict">Specific</span>
+        <p>"On the front page, make the list of ideas shorter — cut it to four items and keep the wording casual. Don't change the footer."</p>
+      </div>
+    </div>
+
+    <p>
+      If the result isn't right, don't start over. Say what's wrong and it'll adjust —
+      "that's too formal, make it sound more like a text message" works fine.
+    </p>
+  </section>
+
+  <!-- ============ 09 ============ -->
+  <section class="station" id="s09">
+    <h2><span class="num">09</span><span>The prompt pack</span></h2>
+
+    <p>Copy these straight in. They're written to work as-is.</p>
+
+    <h3>Everyday edits</h3>
+
+    <div class="prompt">
+      <span class="tag">Change words</span>
+      <p>Change the text under my name on the front page to say: "…". Keep the current formatting.</p>
+    </div>
+
+    <div class="prompt">
+      <span class="tag">Add a photo</span>
+      <p>I've put a photo in the folder. Add it to the front page under the heading, at a sensible size, and make sure it still looks right on a phone.</p>
+    </div>
+
+    <div class="prompt">
+      <span class="tag">Add a link</span>
+      <p>Add a link to my Instagram in the footer, styled the same as the existing links.</p>
+    </div>
+
+    <h3>Making it look better</h3>
+
+    <div class="prompt">
+      <span class="tag">Phones</span>
+      <p>Open every page and check how it looks on a phone-sized screen. Fix anything that overflows, overlaps, or is too small to read.</p>
+    </div>
+
+    <div class="prompt">
+      <span class="tag">Colours</span>
+      <p>Change the accent colour across the whole site from red to deep green. Update it everywhere so nothing is left behind, and make sure the text is still easy to read in both light and dark mode.</p>
+    </div>
+
+    <div class="prompt">
+      <span class="tag">Spacing</span>
+      <p>The front page feels cramped. Add more breathing room between the sections without changing the fonts or colours.</p>
+    </div>
+
+    <h3>Understanding your own site</h3>
+
+    <div class="prompt">
+      <span class="tag">Tour</span>
+      <p>Give me a tour of this site. What file is each page in, and what does each one do? Keep it short and skip the jargon.</p>
+    </div>
+
+    <div class="prompt">
+      <span class="tag">Explain</span>
+      <p>Explain what the file assets/site.css does, in plain English, as if I've never seen code before.</p>
+    </div>
+
+    <div class="prompt">
+      <span class="tag">What changed</span>
+      <p>What did I change the last three times I worked on this site?</p>
+    </div>
+
+    <h3>Publishing and safety</h3>
+
+    <div class="prompt">
+      <span class="tag">Ship it</span>
+      <p>Commit everything with a clear message and push it to GitHub.</p>
+    </div>
+
+    <div class="prompt">
+      <span class="tag">Check first</span>
+      <p>Before we publish — show me exactly what will change, and flag anything that might be a mistake.</p>
+    </div>
+
+    <div class="prompt">
+      <span class="tag">Privacy sweep</span>
+      <p>Look through the whole site for anything personal I shouldn't be publishing — my address, phone number, email, school ID, or anything that looks like a password. List what you find.</p>
+    </div>
+  </section>
+
+  <!-- ============ 10 ============ -->
+  <section class="station" id="s10">
+    <h2><span class="num">10</span><span>When something breaks</span></h2>
+
+    <p>
+      It will, and it doesn't matter. GitHub keeps every version of this site, so anything you
+      break can be undone. You cannot permanently destroy it by making a mistake — that's the
+      entire point of the system.
+    </p>
+
+    <h3>The site looks wrong</h3>
+    <div class="prompt">
+      <span class="tag">Prompt</span>
+      <p>Something looks broken on the front page. Find out what I changed most recently and fix it.</p>
+    </div>
+
+    <h3>You want to undo everything since the last publish</h3>
+    <div class="prompt">
+      <span class="tag">Prompt</span>
+      <p>Undo all my changes since the last commit and put the site back exactly how it was.</p>
+    </div>
+
+    <h3>An error message you don't understand</h3>
+    <div class="prompt">
+      <span class="tag">Prompt</span>
+      <p>I got this error and I don't know what it means. Explain it in plain English and tell me what to do: [paste the error]</p>
+    </div>
+
+    <h3>The live site didn't update</h3>
+    <p>
+      Give it two minutes — publishing isn't instant. Then hard-refresh with
+      <code>⌘</code> + <code>Shift</code> + <code>R</code>, which forces the browser to stop
+      showing you its saved copy. If it's still wrong:
+    </p>
+    <div class="prompt">
+      <span class="tag">Prompt</span>
+      <p>I pushed a change but the live site hasn't updated. Check whether it actually published and tell me what went wrong.</p>
+    </div>
+
+    <div class="note">
+      <strong>Still stuck?</strong>
+      <p>
+        Text Uncle Jimmy. Tell him what you were trying to do and paste the error. That's a
+        two-minute conversation, not an imposition.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ 11 ============ -->
+  <section class="station" id="s11">
+    <h2><span class="num">11</span><span>Rules of the road</span></h2>
+
+    <ol>
+      <li>
+        <b>Assume anything you publish is permanent.</b> Search engines and archives copy pages
+        within minutes. Deleting something later doesn't reliably un-publish it.
+      </li>
+      <li>
+        <b>Keep your address, phone number and student ID off the site.</b> An email address is
+        fine if you're comfortable with strangers having it.
+      </li>
+      <li>
+        <b>Never paste a password or an API key into a file.</b> If you think you have, tell
+        Uncle Jimmy immediately — the fix is quick, but only if it happens straight away.
+      </li>
+      <li>
+        <b>Ask before posting photos of other people.</b> Your friends didn't sign up to be on
+        a public website.
+      </li>
+      <li>
+        <b>Read what the helper wants to do before approving it.</b> It's very good and it's
+        not infallible. If a change looks bigger than what you asked for, say so.
+      </li>
+      <li>
+        <b>Trust your gut.</b> If something feels off — a strange login page, an email asking
+        for your GitHub password — stop and ask. GitHub will never email you asking for it.
+      </li>
+    </ol>
+  </section>
+
+  <!-- ============ glossary ============ -->
+  <section class="station glossary" id="glossary">
+    <h2><span class="num">—</span><span>Glossary</span></h2>
+
+    <p>Every term in this manual, in one place.</p>
+
+    <dl>
+      <dt>repo</dt>
+      <dd>Short for repository. The folder holding your whole site, plus every past version of it.</dd>
+
+      <dt>clone</dt>
+      <dd>Download a copy of the repo from GitHub onto your laptop. You do it once.</dd>
+
+      <dt>commit</dt>
+      <dd>Save a snapshot of your changes with a short note about what you did. Like a save point in a game.</dd>
+
+      <dt>push</dt>
+      <dd>Send your commits up to GitHub. This is what makes changes public.</dd>
+
+      <dt>pull</dt>
+      <dd>Fetch changes from GitHub down to your laptop. You'll need this if someone else edits the site.</dd>
+
+      <dt>branch</dt>
+      <dd>A separate line of work, so you can try something without touching the live site. You may never need one.</dd>
+
+      <dt>deploy</dt>
+      <dd>The automatic step where GitHub takes your pushed files and puts them on the real website.</dd>
+
+      <dt>localhost</dt>
+      <dd>Your own computer, viewed through a browser. <code>localhost:3140</code> is your private preview — no one else can open it.</dd>
+
+      <dt>terminal</dt>
+      <dd>The app where you type commands instead of clicking.</dd>
+
+      <dt>prompt</dt>
+      <dd>What you type to the AI helper. A clear one gets a good result.</dd>
+
+      <dt>HTML</dt>
+      <dd>The language describing what's on a page — headings, paragraphs, images.</dd>
+
+      <dt>CSS</dt>
+      <dd>The language describing how it looks — colours, fonts, spacing. All of this site's CSS is in <code>assets/site.css</code>.</dd>
+    </dl>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap inner">
+    <p class="ask">
+      Stuck on any of this?<br>
+      Just ask <b>Uncle Jimmy</b>.
+    </p>
+    <p>
+      There's no question too basic. Everyone who does this for a living got stuck on exactly
+      these things at some point.
+    </p>
+    <p style="margin-top:1.6rem;">
+      <a href="/">← Back to the front page</a>
+    </p>
+    <small>jarrenchang.com · operator's manual · July 2026</small>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var btn = document.getElementById("themeToggle");
+    var root = document.documentElement;
+    btn.addEventListener("click", function () {
+      var systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      var current = root.getAttribute("data-theme") || (systemDark ? "dark" : "light");
+      var next = current === "dark" ? "light" : "dark";
+      root.setAttribute("data-theme", next);
+      try { localStorage.setItem("theme", next); } catch (e) {}
+    });
+  })();
+</script>
+
+</body>
+</html>
