@@ -285,6 +285,64 @@
     color: var(--ink-soft);
   }
 
+  /* ---------- the other Changs ---------- */
+
+  .elsewhere {
+    margin: clamp(3rem, 8vh, 5rem) 0 0;
+  }
+
+  .elsewhere h2 {
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: .17em;
+    text-transform: uppercase;
+    color: var(--brick);
+    margin: 0 0 1.25rem;
+  }
+
+  .elsewhere ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: .85rem 2.75rem;
+  }
+
+  .elsewhere a {
+    display: inline-flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: var(--ink);
+  }
+
+  .elsewhere .who {
+    font-family: var(--display);
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: 1.25;
+    text-decoration: underline;
+    text-decoration-color: var(--rule);
+    text-decoration-thickness: 1px;
+    text-underline-offset: .22em;
+    transition: color .2s ease, text-decoration-color .2s ease;
+  }
+
+  .elsewhere .rel {
+    font-size: .84rem;
+    letter-spacing: .04em;
+    color: var(--ink-soft);
+    margin-top: .15rem;
+  }
+
+  .elsewhere a:hover .who,
+  .elsewhere a:focus-visible .who {
+    color: var(--brick);
+    text-decoration-color: var(--brick);
+  }
+
+  .elsewhere a:focus-visible { outline: 2px solid var(--brick); outline-offset: 4px; }
+
   /* ---------- footer ---------- */
 
   footer {
@@ -392,6 +450,24 @@
     </ul>
 
     <p class="last">Or something nobody's thought of yet. It's your page — that's the whole point.</p>
+  </section>
+
+  <section class="elsewhere reveal d5">
+    <h2>The other Changs</h2>
+    <ul>
+      <li>
+        <a href="https://tobinchang.com">
+          <span class="who">Tobin Chang</span>
+          <span class="rel">my brother</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://rhyschang.com">
+          <span class="who">Rhys Chang</span>
+          <span class="rel">my cousin</span>
+        </a>
+      </li>
+    </ul>
   </section>
 
 </main>
